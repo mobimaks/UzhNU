@@ -1,14 +1,11 @@
 package ua.elitasoftware.UzhNU;
 
-import android.app.DownloadManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.view.Menu;
-import android.widget.Toast;
 import ua.elitasoftware.UzhNU.SettingsFragment.OnPreferenceClick;
 
 import java.io.File;
@@ -43,7 +40,7 @@ public class SettingsActivity extends BaseActivity implements OnPreferenceClick{
         String folderName = getResources().getString(R.string.folderName);
         File downloadFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + folderName);
         if (removeDirectory(downloadFolder)){
-            Toast.makeText(this, getResources().getString(R.string.cleared), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, getResources().getString(R.string.cleared), Toast.LENGTH_SHORT).show();
         }
 
     }
