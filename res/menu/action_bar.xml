@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:icon="@android:drawable/ic_menu_search"-->
+          <!--android:title="@string/searchMenu"-->
+          <!--android:showAsAction="always"-->
+          <!--android:actionViewClass="android.widget.SearchView"/>-->
+
+    <item android:title="@string/abSortBy"
+          android:icon="@android:drawable/ic_menu_sort_by_size"
+          android:id="@+id/abSortBy"
+          android:showAsAction="ifRoom"
+          android:visible="false">
+        <menu>
+            <group android:id="@+id/abGroupSortBy"
+                   android:checkableBehavior="single">
+                <item android:title="@string/abSortByName"
+                      android:id="@+id/abSortByName"
+                      android:icon="@drawable/sort_name"/>
+                <item android:title="@string/abSortByDate"
+                      android:id="@+id/abSortByDate"
+                      android:icon="@drawable/sort_time"/>
+                <item android:title="@string/abSortByExt"
+                      android:id="@+id/abSortByExt"
+                      android:icon="@drawable/sort_type"/>
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/abDownloads"
+          android:icon="@drawable/ic_action_download"
+          android:id="@+id/abDownloads"
+          android:showAsAction="ifRoom"/>
+
+    <item android:title="@string/abSettings"
+          android:id="@+id/abSettings"
+          android:showAsAction="never"/>
+</menu>

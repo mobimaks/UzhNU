@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="list_of_faculties"
+        android:title="@string/pref_title_list"
+        android:summary="@string/pref_sum_list"/>
+    <Preference
+        android:key="clear_folder"
+        android:title="@string/pref_clear_all"
+        android:enabled="true"/>
+</PreferenceScreen>

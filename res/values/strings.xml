@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UzhNU</string>
+    <string name="searchMenu">Search</string>
+    <string name="error">Error!</string>
+    <string name="folderName">/УжНУ Розклади/</string>
+    <string name="abSettings">Налаштування</string>
+    <string name="pref_title_list">Відкривати при завантаженні</string>
+    <string name="pref_sum_list">Оберіть ваш факультет</string>
+    <string name="noFaculty">Всі</string>
+    <string name="downloadActivity">Завантажені файли</string>
+    <string name="abDownloads">Завантаження</string>
+    <string name="abSortBy">Сортувати по</string>
+    <string name="abSortByName">Назва</string>
+    <string name="abSortByDate">Змінено</string>
+    <string name="abSortByExt">Тип</string>
+    <string name="cantOpenFile">Неможливо відкрити даний тип файлу</string>
+    <string name="pref_clear_all">Очистити папку завантажень</string>
+    <string name="cleared">Папку видалено</string>
+    <string name="noInternet">Немає з\'єднання</string>
+    <string name="emptyFaculty">Пусто</string>
+    <string name="availableNewVer">Доступна нова версія програми</string>
+    <string name="clickToUpd">Торкніться, щоб завантажити</string>
+    <string name="availableUpd">Торкніться, щоб завантажити</string>
+    <string name="emptyFolder">Папка порожня</string>
+    <string name="appUpdAsk">Завантажити оновлення?</string>
+    <string name="dialogBtnNo">Ні</string>
+    <string name="dialogBtnYes">Так</string>
+    <string name="dialogBtnOk">OK</string>
+    <string name="appUpdUrl">http://mobimaks.ucoz.ru/UzhNU.apk</string>
+    <string-array name="values">
+        <item>Інститут післядипломної освіти та доуніверситетської підготовки</item>
+        <item>Інженерно-технічний факультет</item>
+        <item>Факультет європейського права і правознавства</item>
+        <item>Факультет інформаційних технологій</item>
+        <item>Філологічний факультет</item>
+    </string-array>
+    <string-array name="signature">
+        <item>328</item>
+        <item>173</item>
+        <item>171</item>
+        <item>174</item>
+        <item>183</item>
+    </string-array>
+</resources>

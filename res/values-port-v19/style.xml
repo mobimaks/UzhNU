@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="UzhnuTheme" parent="android:Theme.Holo.Light">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:actionBarStyle">@style/actionBarTheme</item>
+    </style>
+
+    <style name="UzhnuTheme.Fits" parent="UzhnuTheme">
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+</resources>

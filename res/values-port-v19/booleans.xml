@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="fitsSystemWindows">true</bool>
+    <bool name="clipToPadding">false</bool>
+    <bool name="windowTranslucent">true</bool>
+</resources>

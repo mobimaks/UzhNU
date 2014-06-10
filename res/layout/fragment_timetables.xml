@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pbDownloadTimetable"
+            android:layout_centerInParent="true"
+            android:animationResolution="@android:integer/config_longAnimTime"
+            android:visibility="invisible"/>
+
+
+    <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/ivNoInternet"
+            android:src="@drawable/cloud"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNoInternet"
+            android:text="@string/noInternet"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ivNoInternet"
+            android:visibility="invisible"/>
+
+    <ExpandableListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/elvTimetableExpListView"
+            android:groupIndicator="@null"
+            android:fitsSystemWindows="@bool/fitsSystemWindows"
+            android:clipToPadding="@bool/clipToPadding"/>
+</RelativeLayout>
