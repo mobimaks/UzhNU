@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">УжНУ</string>
+    <string name="searchMenu">Пошук</string>
+    <string name="abSettings">Налаштування</string>
+    <string name="pref_title_list">Відкривати при завантаженні</string>
+    <string name="pref_sum_list">Оберіть ваш факультет</string>
     <string name="noFaculty">За замовчуванням</string>
     <string name="downloadActivity">Завантажені файли</string>
+    <string name="dialogDownload">Завантажити \"%1$s\"?</string>
+    <string name="dialogGoTo">Перейти до \"%1$s\"?\n</string>
     <string name="abDownloads">Завантаження</string>
     <string name="abSortBy">Сортувати по</string>
     <string name="abSortByName">Назва</string>
@@ -13,9 +19,7 @@
     <string name="cleared">Папку видалено</string>
     <string name="noInternet">Немає з\'єднання</string>
     <string name="emptyFaculty">Інформація відсутня</string>
-    <string name="availableNewVer">Доступна нова версія програми</string>
-    <string name="clickToUpd">Торкніться, щоб завантажити</string>
-    <string name="availableUpd">Доступне оновлення програми</string>
+    <string name="availableNewVer">Доступна нова версія програми.</string>
     <string name="emptyFolder">Папка порожня</string>
     <string name="appUpdAsk">Завантажити оновлення?</string>
     <string name="dialogBtnNo">Ні</string>

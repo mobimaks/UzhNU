@@ -51,6 +51,7 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
     public void openFolder(File folder){
         setCurrentFolder(folder);
         files = folder.listFiles();
+        //if folder is empty
         if (files == null){
             Toast.makeText(getActivity(), getString(R.string.emptyFolder), Toast.LENGTH_SHORT).show();
         } else {

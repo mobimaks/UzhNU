@@ -3,13 +3,9 @@ package ua.elitasoftware.UzhNU;
 import android.app.*;
 import android.content.*;
 import android.content.DialogInterface.OnClickListener;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 public class DownloadDialog extends DialogFragment implements OnClickListener{
 
@@ -18,9 +14,6 @@ public class DownloadDialog extends DialogFragment implements OnClickListener{
     private String caption;
     private String description;
     private final String DIALOG_TAG = "download";
-
-    private long enqueue;
-    private DownloadManager dm;
 
     public DownloadDialog(FragmentManager fragmentManager, int id, String caption, int type) {
         this.type = type;
@@ -47,13 +40,15 @@ public class DownloadDialog extends DialogFragment implements OnClickListener{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         switch (type){
             case TimetablesFragment.TYPE_FILE:
-                builder.setMessage("Завантажити \""+ caption +"\" ?")
+                builder.setMessage(String.format(getString(R.string.dialogDownload), caption))//"Завантажити \""+ caption +"\" ?")
                        .setIcon(R.drawable.file)
                        .setNegativeButton(getString(R.string.dialogBtnNo), null)
                        .setPositiveButton(getString(R.string.dialogBtnYes), this);
                 break;
             case TimetablesFragment.TYPE_LINK:
-                builder.setMessage(Html.fromHtml("Перейти до \""+caption+"\"? </br> <a href=\""+description+"\">"+ description +"</a>"))
+                String goTo = String.format(getString(R.string.dialogGoTo), caption);
+                builder.setMessage(Html.fromHtml(goTo +
+                        "<a href=\""+description+"\">"+ description +"</a>"))
                        .setIcon(R.drawable.link)
                        .setNegativeButton(getString(R.string.dialogBtnNo), null)
                        .setPositiveButton(getString(R.string.dialogBtnYes), this);
