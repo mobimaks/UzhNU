@@ -27,6 +27,8 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
 
     private final String URL_FACULTIES_REQUEST = "http://mobimaks.ucoz.ru/faculty.txt";
 
+    private final String KEY_FACULTIES_ARRAY = "faculties";
+
     //JSON codes
     private final String TAG_ID = "id";
     private final String TAG_CAPTION = "caption";
@@ -44,6 +46,9 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+//        if (savedInstanceState != null){
+//            faculties = (ArrayList<Faculty>) savedInstanceState.getParcelable(KEY_FACULTIES_ARRAY);
+//        }
 
         progressBar = (ProgressBar)getActivity().findViewById(R.id.pbDownloadFaculties);
         try {
@@ -66,12 +71,6 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
             tvNoInternet.setVisibility(View.VISIBLE);
         }
         lvFacultiesList.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        outState.putParcelable("");
     }
 
     @Override

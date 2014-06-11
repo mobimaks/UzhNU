@@ -47,11 +47,11 @@ public class BaseActivity extends Activity {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                finish();
                 DownloadManager dm = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
                 long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
                 //check if downloaded file is 'apk'
                 if (MimeTypeMap.getSingleton().getMimeTypeFromExtension("apk").equals(dm.getMimeTypeForDownloadedFile(downloadId))){
+                    finish();
                     Uri myUri = dm.getUriForDownloadedFile(downloadId);
                     Intent openFile = new Intent(Intent.ACTION_VIEW)
                             .setDataAndType(myUri, MimeTypeMap.getSingleton().getMimeTypeFromExtension("apk"));

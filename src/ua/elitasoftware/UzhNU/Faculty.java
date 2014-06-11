@@ -1,6 +1,6 @@
 package ua.elitasoftware.UzhNU;
 
-public class Faculty {
+public class Faculty{
 
     private Integer id;
     private String name;
@@ -17,4 +17,5 @@ public class Faculty {
     public String getName() {
         return name;
     }
+
 }
