@@ -1,9 +1,7 @@
 package ua.elitasoftware.UzhNU;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
@@ -22,7 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class TimetablesFragment extends Fragment implements OnChildClickListener, OnGroupClickListener {
@@ -271,7 +273,18 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
                     int itemType = getType(oneItem.getString(TAG_ITEM_TYPE));
                     String caption = oneItem.getString(TAG_CAPTION);
                     String description = oneItem.getString(TAG_DESCRIPTION);
+
+                    //change date format
                     String postDate = oneItem.getString(TAG_POST_DATE);
+                    try {
+                        DateFormat originalDateFormat = new SimpleDateFormat("dd.MM.yyyy kk:mm");
+                        DateFormat targetDateFormat = new SimpleDateFormat("E dd MMM kk:mm");
+                        Date date = originalDateFormat.parse(postDate);
+                        postDate = targetDateFormat.format(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     Integer hits = Integer.parseInt(oneItem.getString(TAG_HITS));
                     JSONArray items = oneItem.getJSONArray(TAG_ITEMS);
 

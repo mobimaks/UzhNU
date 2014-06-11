@@ -52,30 +52,6 @@ public class DownloadsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //TOD: Get type of item
-//        View view /*= convertView;
-//        if (view == null)
-//            view */= inflater.inflate(R.layout.downloads_item, parent, false);
-//
-//        //TOD: ViewHolder
-//        ImageView imageView = (ImageView)view.findViewById(R.id.ivItemIcon);
-//        TextView tvName = (TextView)view.findViewById(R.id.tvItemName);
-//        TextView tvSize = (TextView)view.findViewById(R.id.tvItemSize);
-//        TextView tvDate = (TextView)view.findViewById(R.id.tvItemDate);
-//        File file = (File) getItem(position);
-//
-//        imageView.setImageDrawable(getFileIcon(file.getName()));
-//        if (file.isDirectory()){
-//            imageView.setImageResource(R.drawable.format_folder);
-//            tvName.setText(file.getName());
-//            //TOD: "елемент/елементи/елементів" for folders size
-//            tvSize.setText(file.listFiles().length + " елементів");
-//        } else{
-//            tvName.setText(file.getName().substring(0, file.getName().lastIndexOf(".")));
-//            tvSize.setText(String.valueOf(file.length()/1024)+" КБ");
-//        }
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-//        tvDate.setText(dateFormat.format(file.lastModified()));
         ViewHolder holder;
         if (convertView == null){
             holder = new ViewHolder();
