@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class FacultiesFragment extends Fragment implements OnItemClickListener {
@@ -72,6 +66,12 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
             tvNoInternet.setVisibility(View.VISIBLE);
         }
         lvFacultiesList.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putParcelable("");
     }
 
     @Override
@@ -131,7 +131,7 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
                 }
 
                 //adding faculties to DB
-                if (faculties != null)
+                if (!faculties.isEmpty())
                     addToDB(faculties);
                 return faculties;
             } catch (JSONException e) {
