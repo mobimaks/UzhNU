@@ -41,7 +41,7 @@ public class SettingsActivity extends BaseActivity implements OnPreferenceClick{
         String folderName = getResources().getString(R.string.folderName);
         File downloadFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + folderName);
         if (removeDirectory(downloadFolder)){
-            Toast.makeText(this, getResources().getString(R.string.cleared), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.cleared), Toast.LENGTH_SHORT).show();
         }
 
     }
