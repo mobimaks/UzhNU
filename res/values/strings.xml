@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">UzhNU</string>
     <string name="searchMenu">Search</string>
-    <string name="folderName">/УжНУ Розклади/</string>
     <string name="abSettings">Settings</string>
     <string name="pref_title_list">Open on startup</string>
     <string name="pref_sum_list">Select your faculty</string>
@@ -25,6 +24,4 @@
     <string name="appUpdAsk">Update?</string>
     <string name="dialogBtnNo">No</string>
     <string name="dialogBtnYes">Yes</string>
-    <string name="dialogBtnOk">OK</string>
-    <string name="appUpdUrl">http://mobimaks.ucoz.ru/UzhNU.apk</string>
 </resources>
