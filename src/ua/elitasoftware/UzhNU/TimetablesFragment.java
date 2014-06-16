@@ -39,7 +39,7 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
     //Service const
     public static final String FILE = "file";
     public static final String FILE_NAME = "name";
-    public static final String FILE_EXTENCION = "ext";
+    public static final String FILE_EXTENSION = "ext";
     //upd const
     public static final String ITEMS_FROM_DB = "db";
     public static final String ITEMS_FROM_INTERNET = "new";
@@ -60,14 +60,18 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
     private Timetable timetable;
     private TimetablesAdapter adapter;
     private DownloadDialog dialog;
+    private boolean rotated = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             timetable = savedInstanceState.getParcelable("timetable");
+            setMainId(savedInstanceState.getString("mainId"));
+            setMainTitle(savedInstanceState.getString("mainTitle"));
             setParentId(savedInstanceState.getString("parentId"));
             setParentTitle(savedInstanceState.getString("parentTitle"));
+            rotated = savedInstanceState.getBoolean("rotated");
         }
     }
 
@@ -79,16 +83,19 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable("timetable", timetable);
+        outState.putString("mainId", getMainId());
+        outState.putString("mainTitle", getMainTitle());
         outState.putString("parentId", getParentId());
         outState.putString("parentTitle", getParentTitle());
+        outState.putBoolean("rotated", true);
         super.onSaveInstanceState(outState);
     }
 
     public void openFolder(String id, String caption, String parentId, String parentTitle) {
         getActivity().setTitle(caption);
-        setMainId(id);
-        setMainTitle(caption);
-        if ((getParentId() == null) && (getParentTitle() == null)) {
+        if (!rotated) {//(getParentId() == null) && (getParentTitle() == null)) {
+            setMainId(id);
+            setMainTitle(caption);
             setParentId(parentId);
             setParentTitle(parentTitle);
         }
@@ -102,13 +109,17 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
             TextView tvNoInternet = (TextView) getActivity().findViewById(R.id.tvNoInternet);
             ivNoInternet.setVisibility(View.VISIBLE);
             tvNoInternet.setVisibility(View.VISIBLE);
-
         }
     }
 
-    private void clearTimetable() {
-        if (elvTimetableExpListView != null) {
-            elvTimetableExpListView.setVisibility(View.INVISIBLE);
+    private void createTree(ArrayList<TimetableItem> timetableItems) {
+        elvTimetableExpListView = (ExpandableListView) getActivity().findViewById(R.id.elvTimetableExpListView);
+        adapter = new TimetablesAdapter(getActivity(), timetableItems);
+        elvTimetableExpListView.setAdapter(adapter);
+        elvTimetableExpListView.setOnChildClickListener(this);
+        elvTimetableExpListView.setOnGroupClickListener(this);
+        if (elvTimetableExpListView.getVisibility() == View.INVISIBLE) {
+            elvTimetableExpListView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -137,21 +148,16 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
         }
     }
 
+    private void clearTimetable() {
+        if (elvTimetableExpListView != null) {
+            elvTimetableExpListView.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private boolean hasInternet() {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return (activeNetwork != null && activeNetwork.isConnected());
-    }
-
-    private void createTree(ArrayList<TimetableItem> timetableItems) {
-        elvTimetableExpListView = (ExpandableListView) getActivity().findViewById(R.id.elvTimetableExpListView);
-        adapter = new TimetablesAdapter(getActivity(), timetableItems);
-        elvTimetableExpListView.setAdapter(adapter);
-        elvTimetableExpListView.setOnChildClickListener(this);
-        elvTimetableExpListView.setOnGroupClickListener(this);
-        if (elvTimetableExpListView.getVisibility() == View.INVISIBLE) {
-            elvTimetableExpListView.setVisibility(View.VISIBLE);
-        }
     }
 
     //calling the interface
@@ -221,12 +227,17 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
         this.timetable = timetable;
     }
 
-    public interface OnChildSelect {
-        void onChildSelect(TimetableItem item);
+    public void setRotated(boolean rotated) {
+        this.rotated = rotated;
     }
 
     public interface OnGroupSelect {
         void onGroupSelect(ExpandableListView parent, int groupPosition, TimetableItem item);
+    }
+
+    public interface OnChildSelect {
+        void onChildSelect(TimetableItem item);
+
     }
 
     //class for making request and parsing JSON
@@ -376,5 +387,4 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
             }
         }
     }
-
 }

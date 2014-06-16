@@ -37,6 +37,7 @@ public class TimetableActivity extends BaseActivity implements OnChildSelect, On
             finish();
         } else {
             timetablesFragment.setTimetable(null);
+            timetablesFragment.setRotated(false);
             timetablesFragment.openFolder(timetablesFragment.getParentId(), timetablesFragment.getParentTitle(),null, null);
         }
 
