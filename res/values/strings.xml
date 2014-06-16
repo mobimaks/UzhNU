@@ -24,4 +24,6 @@
     <string name="appUpdAsk">Update?</string>
     <string name="dialogBtnNo">No</string>
     <string name="dialogBtnYes">Yes</string>
+    <string name="about">About</string>
+    <string name="aboutVer">Version %1$s</string>
 </resources>

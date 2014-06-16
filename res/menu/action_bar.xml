@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<item android:icon="@android:drawable/ic_menu_search"-->
-          <!--android:title="@string/searchMenu"-->
-          <!--android:showAsAction="always"-->
-          <!--android:actionViewClass="android.widget.SearchView"/>-->
 
     <item android:title="@string/abSortBy"
           android:icon="@android:drawable/ic_menu_sort_by_size"
@@ -34,5 +30,9 @@
 
     <item android:title="@string/abSettings"
           android:id="@+id/abSettings"
+          android:showAsAction="never"/>
+
+    <item android:title="@string/about"
+          android:id="@+id/abAbout"
           android:showAsAction="never"/>
 </menu>

@@ -24,4 +24,6 @@
     <string name="appUpdAsk">Скачать обновление?</string>
     <string name="dialogBtnNo">Нет</string>
     <string name="dialogBtnYes">Да</string>
+    <string name="about">О программе</string>
+    <string name="aboutVer">Версия %1$s</string>
 </resources>

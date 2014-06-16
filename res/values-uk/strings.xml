@@ -24,4 +24,7 @@
     <string name="appUpdAsk">Завантажити оновлення?</string>
     <string name="dialogBtnNo">Ні</string>
     <string name="dialogBtnYes">Так</string>
+    <string name="about">Про програму</string>
+    <string name="aboutVer">Версія %1$s</string>
+    <string name="aboutDev">Розроблено Інститутом інформаційно-комунікаційних технологій</string>
 </resources>
