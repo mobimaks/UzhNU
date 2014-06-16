@@ -21,22 +21,15 @@ import java.util.concurrent.ExecutionException;
 
 public class FacultiesFragment extends Fragment implements OnItemClickListener {
 
-    public interface OnSelectedFaculty{
-        void onSelectFaculty(AdapterView<?> parent, View view, int position, Faculty faculty);
-    }
-
     private final String URL_FACULTIES_REQUEST = "http://mobimaks.ucoz.ru/faculty.txt";
-
     private final String KEY_FACULTIES_ARRAY = "faculties";
-
     //JSON codes
     private final String TAG_ID = "id";
     private final String TAG_CAPTION = "caption";
-
     private ListView lvFacultiesList;
     private ProgressBar progressBar;
     private FacultiesAdapter adapter;
-    private ArrayList<Faculty> faculties = null;
+    private ArrayList<Faculty> faculties;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,27 +39,28 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (savedInstanceState != null){
-//            faculties = (ArrayList<Faculty>) savedInstanceState.getParcelable(KEY_FACULTIES_ARRAY);
-//        }
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.pbDownloadFaculties);
 
-        progressBar = (ProgressBar)getActivity().findViewById(R.id.pbDownloadFaculties);
         try {
-            faculties = (ArrayList<Faculty>)new FacultyRequest().execute(URL_FACULTIES_REQUEST).get();
+            if (savedInstanceState == null) {
+                faculties = (ArrayList<Faculty>) new FacultyRequest().execute(URL_FACULTIES_REQUEST).get();
+            } else {
+                faculties = savedInstanceState.getParcelableArrayList("list");
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        lvFacultiesList = (ListView)getActivity().findViewById(R.id.lvFacultiesList);
+        lvFacultiesList = (ListView) getActivity().findViewById(R.id.lvFacultiesList);
 
-        if (faculties != null){
+        if (faculties != null) {
             adapter = new FacultiesAdapter(getActivity(), faculties);
             lvFacultiesList.setAdapter(adapter);
         } else {
-            ImageView ivNoInternet = (ImageView)getActivity().findViewById(R.id.ivNoInternet);
-            TextView tvNoInternet = (TextView)getActivity().findViewById(R.id.tvNoInternet);
+            ImageView ivNoInternet = (ImageView) getActivity().findViewById(R.id.ivNoInternet);
+            TextView tvNoInternet = (TextView) getActivity().findViewById(R.id.tvNoInternet);
             ivNoInternet.setVisibility(View.VISIBLE);
             tvNoInternet.setVisibility(View.VISIBLE);
         }
@@ -74,9 +68,19 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("list", faculties);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        OnSelectedFaculty listener = (OnSelectedFaculty)getActivity();
+        OnSelectedFaculty listener = (OnSelectedFaculty) getActivity();
         listener.onSelectFaculty(parent, view, position, faculties.get(position));
+    }
+
+    public interface OnSelectedFaculty {
+        void onSelectFaculty(AdapterView<?> parent, View view, int position, Faculty faculty);
     }
 
     /**

@@ -19,40 +19,33 @@ import java.util.Comparator;
 
 public class DownloadsFragment extends Fragment implements OnItemClickListener {
 
-    private File[] files;
     public static final String ORDER_BY = "sort";
-
     //sorting const
     public static final String SORT_BY_DATE = "date";
     public static final String SORT_BY_NAME = "name";
     public static final String SORT_BY_EXTENSION = "extension";
-
+    private File[] files;
     private File currentFolder;
     private DownloadsAdapter adapter;
-
-
-    public interface OnItemClick{
-        void onItemClick(File item);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_downloads, container, false);
     }
 
-    public void refresh(){
+    public void refresh() {
         openFolder(getCurrentFolder());
     }
 
-    public void openDefaultFolder(){
+    public void openDefaultFolder() {
         openFolder(getMainFolder());
     }
 
-    public void openFolder(File folder){
+    public void openFolder(File folder) {
         setCurrentFolder(folder);
         files = folder.listFiles();
         //if folder is empty
-        if (files == null){
+        if (files == null) {
             Toast.makeText(getActivity(), getString(R.string.emptyFolder), Toast.LENGTH_SHORT).show();
         } else {
             //check Shared Preference for sortBy parameter
@@ -66,26 +59,26 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
 //            Toast.makeText(getActivity(), "Sort time: "+((finishSort-startSort))+" ms", Toast.LENGTH_SHORT).show();
 
             adapter = new DownloadsAdapter(getActivity().getApplicationContext(), files);
-            ListView listView = (ListView)getActivity().findViewById(R.id.lvDownloadList);
+            ListView listView = (ListView) getActivity().findViewById(R.id.lvDownloadList);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(this);
         }
     }
 
     //TODO: Try sort in AsyncTask
-    private void sortFiles(File[] files, final String sortBy){
+    private void sortFiles(File[] files, final String sortBy) {
         Arrays.sort(files, new Comparator<File>() {
             @Override
             public int compare(File lhs, File rhs) {
                 if (lhs.isDirectory() && rhs.isFile()) {
-                //return folder first
+                    //return folder first
                     return -1;
-                } else if (lhs.isFile() && rhs.isDirectory()){
+                } else if (lhs.isFile() && rhs.isDirectory()) {
                     //return file first
                     return 1;
-                } else if ((lhs.isDirectory() && rhs.isDirectory()) || (lhs.isFile() && rhs.isFile())){
+                } else if ((lhs.isDirectory() && rhs.isDirectory()) || (lhs.isFile() && rhs.isFile())) {
                     //if Files have same type, then sort
-                    switch (sortBy){
+                    switch (sortBy) {
                         case SORT_BY_NAME:
                             return lhs.getName().compareTo(rhs.getName());
                         case SORT_BY_DATE:
@@ -100,13 +93,13 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
         });
     }
 
-    private int extensionSort(File lhs, File rhs){
+    private int extensionSort(File lhs, File rhs) {
         String ext1 = lhs.getName();
         String ext2 = rhs.getName();
-        if (lhs.isDirectory()){
+        if (lhs.isDirectory()) {
             ext1 += ".";
         }
-        if (rhs.isDirectory()){
+        if (rhs.isDirectory()) {
             ext2 += ".";
         }
         ext1 = ext1.substring(ext1.lastIndexOf("."));
@@ -121,12 +114,16 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        OnItemClick listener = (OnItemClick)getActivity();
-        listener.onItemClick((File)adapter.getItem(position));
+        OnItemClick listener = (OnItemClick) getActivity();
+        listener.onItemClick((File) adapter.getItem(position));
     }
 
     public File getCurrentFolder() {
         return currentFolder;
+    }
+
+    public void setCurrentFolder(File currentFolder) {
+        this.currentFolder = currentFolder;
     }
 
     public File getMainFolder() {
@@ -135,7 +132,7 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
         return downloadFolder;
     }
 
-    public void setCurrentFolder(File currentFolder) {
-        this.currentFolder = currentFolder;
+    public interface OnItemClick {
+        void onItemClick(File item);
     }
 }

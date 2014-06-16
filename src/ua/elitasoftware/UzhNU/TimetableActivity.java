@@ -1,11 +1,8 @@
 package ua.elitasoftware.UzhNU;
 
-import android.app.DownloadManager;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 import ua.elitasoftware.UzhNU.TimetablesFragment.OnChildSelect;
@@ -35,9 +32,11 @@ public class TimetableActivity extends BaseActivity implements OnChildSelect, On
 //        super.onBackPressed();
         manager =  getFragmentManager();
         TimetablesFragment timetablesFragment = (TimetablesFragment)manager.findFragmentById(R.id.frTimetable);
-        if (timetablesFragment.getParentId() == null){
+        if (timetablesFragment.getParentId() == null ||
+                timetablesFragment.getParentId().equals(timetablesFragment.getMainId())) {
             finish();
         } else {
+            timetablesFragment.setTimetable(null);
             timetablesFragment.openFolder(timetablesFragment.getParentId(), timetablesFragment.getParentTitle(),null, null);
         }
 
@@ -53,6 +52,7 @@ public class TimetableActivity extends BaseActivity implements OnChildSelect, On
             case TimetablesFragment.TYPE_FOLDER:
                 int itemID = item.getId();
                 String title = item.getCaption();
+                timetablesFragment.setTimetable(null);
                 timetablesFragment.openFolder(String.valueOf(itemID), title, timetablesFragment.getMainId(), timetablesFragment.getMainTitle());
                 break;
             case TimetablesFragment.TYPE_FILE:
