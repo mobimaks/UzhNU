@@ -26,4 +26,5 @@
     <string name="dialogBtnYes">Yes</string>
     <string name="about">About</string>
     <string name="aboutVer">Version %1$s</string>
+    <string name="aboutDev">Developed by the Institute of Information and Communication Technologies</string>
 </resources>

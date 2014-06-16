@@ -26,4 +26,5 @@
     <string name="dialogBtnYes">Да</string>
     <string name="about">О программе</string>
     <string name="aboutVer">Версия %1$s</string>
+    <string name="aboutDev">Разработанное Институтом информационно-коммуникационных технологий</string>
 </resources>

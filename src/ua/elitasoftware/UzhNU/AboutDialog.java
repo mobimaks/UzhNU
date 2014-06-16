@@ -11,11 +11,9 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.TextView;
 
-/**
- * Created by mobimaks on 16.06.2014.
- */
 public class AboutDialog extends DialogFragment implements OnLongClickListener {
 
+    private TextView tvAppName;
     private TextView tvAppDev;
 
     public AboutDialog(FragmentManager fragmentManager) {
@@ -27,7 +25,7 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.about, null);
 
-        TextView tvAppName = (TextView) dialogView.findViewById(R.id.tvAboutAppName);
+        tvAppName = (TextView) dialogView.findViewById(R.id.tvAboutAppName);
         TextView tvAppVer = (TextView) dialogView.findViewById(R.id.tvAboutAppVer);
         tvAppDev = (TextView) dialogView.findViewById(R.id.tvAboutAppDev);
         tvAppDev.setOnLongClickListener(this);
@@ -41,6 +39,22 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
         }
         tvAppVer.setText(String.format(getString(R.string.aboutVer), appVer));
 
+        //
+//        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        int length = Integer.valueOf(preference.getString("length", "0"));
+//        LinearLayout llAboutText = (LinearLayout)dialogView.findViewById(R.id.llAboutText);
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)llAboutText.getLayoutParams();
+//        layoutParams.setMargins(dpToPx(length), 0, 0, 0);
+//        llAboutText.setLayoutParams(layoutParams);
+//
+//
+//        TextView tvAboutDev = (TextView) dialogView.findViewById(R.id.tvAboutAppDev);
+//        int up = Integer.valueOf(preference.getString("up", "0"));
+//        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tvAboutDev.getLayoutParams();
+//        params.setMargins(0, dpToPx(up), 0, 0);
+//        tvAboutDev.setLayoutParams(params);
+        //
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.about))
                 .setNeutralButton(getString(R.string.dialogBtnOk), null)
@@ -49,6 +63,12 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
         setRetainInstance(true);
         return builder.create();
     }
+
+//    public int dpToPx(int dp) {
+//        DisplayMetrics displayMetrics = getActivity().getApplicationContext().getResources().getDisplayMetrics();
+//        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+//        return px;
+//    }
 
     @Override
     public void onDestroyView() {
@@ -62,7 +82,11 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
     public boolean onLongClick(View v) {
         switch (v.getId()) {
             case R.id.tvAboutAppDev:
-                tvAppDev.setText("Насправді програму розробив mobimaks! ;)");
+                int width = tvAppDev.getWidth();
+                int height = tvAppDev.getHeight();
+                tvAppDev.setText("Насправді, програму розробив mobimaks! ;)\n©ElitaSoftware Corporation");
+                tvAppDev.setWidth(width);
+                tvAppDev.setHeight(height);
                 break;
         }
         return true;

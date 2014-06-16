@@ -2,11 +2,23 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        android:key="list_of_faculties"
-        android:title="@string/pref_title_list"
-        android:summary="@string/pref_sum_list"/>
+            android:key="list_of_faculties"
+            android:title="@string/pref_title_list"
+            android:summary="@string/pref_sum_list"/>
     <Preference
-        android:key="clear_folder"
-        android:title="@string/pref_clear_all"
-        android:enabled="true"/>
+            android:key="clear_folder"
+            android:title="@string/pref_clear_all"
+            android:enabled="true"/>
+
+    <!--<EditTextPreference-->
+    <!--android:key="length"-->
+    <!--android:inputType="numberSigned"-->
+    <!--android:summary="Картинка"-->
+    <!--android:title="Введи відстань, маупа!"/>-->
+
+    <!--<EditTextPreference-->
+    <!--android:key="up"-->
+    <!--android:inputType="numberSigned"-->
+    <!--android:summary="Розроблено.."-->
+    <!--android:title="Введи відстань, маупа![2]"/>-->
 </PreferenceScreen>
