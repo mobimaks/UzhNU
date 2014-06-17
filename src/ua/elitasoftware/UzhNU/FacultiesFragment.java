@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 
 public class FacultiesFragment extends Fragment implements OnItemClickListener {
 
-    private final String URL_FACULTIES_REQUEST = "http://mobimaks.ucoz.ru/faculty.txt";
+    //    private String URL_FACULTIES_REQUEST = "http://mobimaks.ucoz.ru/faculty.txt";
     private final String KEY_FACULTIES_ARRAY = "faculties";
     //JSON codes
     private final String TAG_ID = "id";
@@ -43,7 +43,7 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
 
         try {
             if (savedInstanceState == null) {
-                faculties = (ArrayList<Faculty>) new FacultyRequest().execute(URL_FACULTIES_REQUEST).get();
+                faculties = (ArrayList<Faculty>) new FacultyRequest().execute(getString(R.string.facultiesUrl)).get();
             } else {
                 faculties = savedInstanceState.getParcelableArrayList("list");
             }
@@ -86,7 +86,7 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
     /**
      * AsyncTask
      */
-    class FacultyRequest extends AsyncTask<String, Void, Object>{
+    class FacultyRequest extends AsyncTask<String, Void, Object> {
 
         private HandleHTTP handleHTTP;
 
@@ -100,9 +100,9 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
         protected Object doInBackground(String... params) {
             handleHTTP = new HandleHTTP();
             String jSONstr;
-            if (hasInternet()){
+            if (hasInternet()) {
                 jSONstr = handleHTTP.makeRequest(params[0]);
-                if (jSONstr != null){
+                if (jSONstr != null) {
                     return fillData(jSONstr);
                 } else {
                     return null;
@@ -118,12 +118,12 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
             progressBar.setVisibility(View.INVISIBLE);
         }
 
-        private ArrayList<Faculty> fillData(String jSONstr){
+        private ArrayList<Faculty> fillData(String jSONstr) {
             ArrayList<Faculty> faculties = new ArrayList<>();
             Faculty faculty;
             try {
                 JSONArray dekanatsArray = new JSONArray(jSONstr);
-                for (int i = 0; i < dekanatsArray.length(); i++){
+                for (int i = 0; i < dekanatsArray.length(); i++) {
                     JSONObject oneDekanat = dekanatsArray.getJSONObject(i);
                     int id = oneDekanat.getInt(TAG_ID);
                     String name = oneDekanat.getString(TAG_CAPTION);
@@ -143,25 +143,25 @@ public class FacultiesFragment extends Fragment implements OnItemClickListener {
             }
         }
 
-        private void addToDB(ArrayList<Faculty> faculties){
+        private void addToDB(ArrayList<Faculty> faculties) {
             DBHelper dbHelper = new DBHelper(getActivity().getApplicationContext());
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
             db.delete(dbHelper.FACULTIES, null, null);
-            String sqlInsert = "insert into " + dbHelper.FACULTIES +" ("+ dbHelper.ID+", " + dbHelper.CAPTION + ") values" ;
+            String sqlInsert = "insert into " + dbHelper.FACULTIES + " (" + dbHelper.ID + ", " + dbHelper.CAPTION + ") values";
             int i;
-            for (i = 0; i<faculties.size(); i++) {
+            for (i = 0; i < faculties.size(); i++) {
                 Integer id = faculties.get(i).getId();
                 String caption = faculties.get(i).getName().replaceAll("'", "''");
-                sqlInsert += " ('"+ id + "', '" + caption + "'),";
+                sqlInsert += " ('" + id + "', '" + caption + "'),";
             }
-            sqlInsert = sqlInsert.substring(0, sqlInsert.length()-1)+";";
+            sqlInsert = sqlInsert.substring(0, sqlInsert.length() - 1) + ";";
             db.execSQL(sqlInsert);
         }
 
 
-        private boolean hasInternet(){
-            ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        private boolean hasInternet() {
+            ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 //            if
 //            {

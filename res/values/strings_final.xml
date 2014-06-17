@@ -2,9 +2,12 @@
 <resources>
     <string name="folderName">/УжНУ Розклади/</string>
     <string name="dialogBtnOk">OK</string>
-    <string name="appUpdUrl">http://mobimaks.ucoz.ru/UzhNU.apk</string>
+    <string name="facultiesUrl">http://www.uzhnu.edu.ua/ua/infocentre/getFaculties</string>
+    <!--<string name="appUpdUrl">http://mobimaks.ucoz.ru/UzhNU.apk</string>-->
+    <string name="appUpdUrl">http://www.uzhnu.edu.ua/uk/infocentre/get/2749</string>
+    <string name="verUrl">http://www.uzhnu.edu.ua/uk/infocentre/get/2750</string>
     <string name="devEmail">mobimaks13@gmail.com</string>
-    <string name="devSubject">Програма \"УжНУ\"</string>
+    <string name="devSubject">Android-додаток ДВНЗ \"УжНУ: Інфо-центр\"</string>
     <string name="uzhnuSite">http://www.uzhnu.edu.ua/</string>
     <string-array name="dateDays">
         <item>7</item>

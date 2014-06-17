@@ -124,7 +124,7 @@ public class TimetablesFragment extends Fragment implements OnChildClickListener
             if (timetable == null) {
                 timetable = (Timetable) new TimetableRequest().execute(ITEMS_FROM_INTERNET, id).get();
             }
-            if (timetable.getItems().size() == 0 || timetable == null) {
+            if (timetable == null || timetable.getItems().size() == 0) {
                 ImageView ivNoInternet = (ImageView) getActivity().findViewById(R.id.ivNoInternet);
                 ivNoInternet.setImageResource(R.drawable.empty_faculty);
                 ivNoInternet.setVisibility(View.VISIBLE);

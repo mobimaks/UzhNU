@@ -128,13 +128,18 @@ public class BaseActivity extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             HandleHTTP handleHTTP = new HandleHTTP();
-            String url = "http://mobimaks.ucoz.ru/version.txt";
+            String url = getString(R.string.verUrl);//"http://mobimaks.ucoz.ru/version.txt";
             String version = handleHTTP.makeRequest(url);
             if (version == null) {
                 return false;
             }
             Double versionSite, versionPhone;
-            versionSite = Double.parseDouble(version);
+            try {
+                versionSite = Double.parseDouble(version);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                return false;
+            }
             String packageVer;
             try {
                 packageVer = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
