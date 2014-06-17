@@ -7,18 +7,18 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by mobimaks on 06.04.2014.
- */
 public class BaseActivity extends Activity {
 
     public static final int TYPE_APP_UPD = 4;
@@ -77,11 +77,17 @@ public class BaseActivity extends Activity {
                 startActivity(intent);
                 break;
             case R.id.abDownloads:
-                intent = new Intent(this, DownloadActivity.class);
-                startActivity(intent);
+                String folderName = getResources().getString(R.string.folderName);
+                File downloadFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + folderName);
+                if (downloadFolder.list() == null || downloadFolder.list().length == 0) {
+                    Toast.makeText(this, getString(R.string.emptyFolder), Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(this, DownloadActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.abAbout:
-                AboutDialog dialog = new AboutDialog(getFragmentManager());
+                new AboutDialog(getFragmentManager());
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -143,18 +149,4 @@ public class BaseActivity extends Activity {
             return false;
         }
     }
-
-//    BroadcastReceiver receiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            DownloadManager dm = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
-//            long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-//            Uri myUri = dm.getUriForDownloadedFile(downloadId);
-//            unregisterReceiver(this);
-//            finish();
-//            Intent openFile = new Intent(Intent.ACTION_VIEW)
-//                     .setDataAndType(myUri, MimeTypeMap.getSingleton().getMimeTypeFromExtension("apk"));
-//            startActivity(openFile);
-//        }
-//    };
 }

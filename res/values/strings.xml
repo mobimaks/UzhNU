@@ -27,4 +27,6 @@
     <string name="about">About</string>
     <string name="aboutVer">Version %1$s</string>
     <string name="aboutDev">Developed by the Institute of Information and Communication Technologies</string>
+    <string name="feedback">Feedback</string>
+    <string name="reportError">Report an error</string>
 </resources>

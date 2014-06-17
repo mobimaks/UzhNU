@@ -4,14 +4,18 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AboutDialog extends DialogFragment implements OnLongClickListener {
+public class AboutDialog extends DialogFragment implements OnLongClickListener, OnClickListener {
 
     private TextView tvAppName;
     private TextView tvAppDev;
@@ -24,6 +28,8 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.about, null);
+
+        ((ImageView) dialogView.findViewById(R.id.ivAbout)).setOnClickListener(this);
 
         tvAppName = (TextView) dialogView.findViewById(R.id.tvAboutAppName);
         TextView tvAppVer = (TextView) dialogView.findViewById(R.id.tvAboutAppVer);
@@ -79,12 +85,23 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener {
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivAbout:
+                Intent openSite = new Intent(Intent.ACTION_VIEW);
+                openSite.setData(Uri.parse(getString(R.string.uzhnuSite)));
+                startActivity(openSite);
+                break;
+        }
+    }
+
+    @Override
     public boolean onLongClick(View v) {
         switch (v.getId()) {
             case R.id.tvAboutAppDev:
                 int width = tvAppDev.getWidth();
                 int height = tvAppDev.getHeight();
-                tvAppDev.setText("Насправді, програму розробив mobimaks! ;)\n©ElitaSoftware Corporation");
+                tvAppDev.setText("Насправді, програму розробив mobimaks! :)\n©ElitaSoftware Corporation");
                 tvAppDev.setWidth(width);
                 tvAppDev.setHeight(height);
                 break;

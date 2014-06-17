@@ -3,4 +3,7 @@
     <string name="folderName">/УжНУ Розклади/</string>
     <string name="dialogBtnOk">OK</string>
     <string name="appUpdUrl">http://mobimaks.ucoz.ru/UzhNU.apk</string>
+    <string name="devEmail">mobimaks13@gmail.com</string>
+    <string name="devSubject">Програма \"УжНУ\"</string>
+    <string name="uzhnuSite">http://www.uzhnu.edu.ua/</string>
 </resources>

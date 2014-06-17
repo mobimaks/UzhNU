@@ -2,6 +2,8 @@ package ua.elitasoftware.UzhNU;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
@@ -11,7 +13,9 @@ import ua.elitasoftware.UzhNU.SettingsFragment.OnPreferenceClick;
 
 import java.io.File;
 
-public class SettingsActivity extends BaseActivity implements OnPreferenceClick{
+public class SettingsActivity extends BaseActivity implements OnPreferenceClick {
+
+    private boolean clearFolder = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +34,41 @@ public class SettingsActivity extends BaseActivity implements OnPreferenceClick{
 
     @Override
     public void onPreferenceClick(Preference preference) {
-        switch (preference.getKey()){
+        switch (preference.getKey()) {
             case SettingsFragment.CLEAR_ALL_KEY:
                 clearDownloadFolder();
+                clearFolder = true;
                 break;
+            case SettingsFragment.FEEDBACK_KEY:
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:" + getString(R.string.devEmail)));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.devSubject));
+                startActivity(emailIntent);
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (clearFolder && DownloadActivity.isActive()) {
+            Intent intent = new Intent(this, DownloadActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            super.onBackPressed();
         }
     }
 
     private void clearDownloadFolder() {
         String folderName = getResources().getString(R.string.folderName);
         File downloadFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + folderName);
-        if (removeDirectory(downloadFolder)){
+        if (removeDirectory(downloadFolder)) {
             Toast.makeText(this, getString(R.string.cleared), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private boolean removeDirectory(File file){
+    private boolean removeDirectory(File file) {
         if (file == null)
             return true;
         if (!file.exists())
@@ -56,15 +78,15 @@ public class SettingsActivity extends BaseActivity implements OnPreferenceClick{
 
         String[] list = file.list();
 
-        if (list != null){
-            for (int i = 0; i<list.length; i++){
+        if (list != null) {
+            for (int i = 0; i < list.length; i++) {
                 File item = new File(file, list[i]);
 
-                if (item.isDirectory()){
+                if (item.isDirectory()) {
                     if (!removeDirectory(item))
-                        return  false;
+                        return false;
                 } else {
-                    if (!item.delete()){
+                    if (!item.delete()) {
                         return false;
                     }
                 }

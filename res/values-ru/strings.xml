@@ -27,4 +27,6 @@
     <string name="about">О программе</string>
     <string name="aboutVer">Версия %1$s</string>
     <string name="aboutDev">Разработанное Институтом информационно-коммуникационных технологий</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="reportError">Сообщить об ошибке</string>
 </resources>

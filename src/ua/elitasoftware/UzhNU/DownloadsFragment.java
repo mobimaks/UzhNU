@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.Arrays;
@@ -45,8 +44,9 @@ public class DownloadsFragment extends Fragment implements OnItemClickListener {
         setCurrentFolder(folder);
         files = folder.listFiles();
         //if folder is empty
-        if (files == null) {
-            Toast.makeText(getActivity(), getString(R.string.emptyFolder), Toast.LENGTH_SHORT).show();
+        if (files == null || files.length == 0) {
+//            Toast.makeText(getActivity(), getString(R.string.emptyFolder), Toast.LENGTH_SHORT).show();
+            getActivity().finish();
         } else {
             //check Shared Preference for sortBy parameter
             SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);

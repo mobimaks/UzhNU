@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.io.File;
@@ -16,14 +15,14 @@ import java.text.SimpleDateFormat;
 public class DownloadsAdapter extends BaseAdapter {
 
     private final int TYPE_FOLDER = 0;
-    private final int TYPE_WORD   = 1;
-    private final int TYPE_EXCEL  = 2;
-    private final int TYPE_POINT  = 3;
-    private final int TYPE_PDF    = 4;
-    private final int TYPE_ZIP    = 5;
-    private final int TYPE_TXT    = 6;
-    private final int TYPE_IMAGE  = 7;
-    private final int TYPE_OTHER  = 8;
+    private final int TYPE_WORD = 1;
+    private final int TYPE_EXCEL = 2;
+    private final int TYPE_POINT = 3;
+    private final int TYPE_PDF = 4;
+    private final int TYPE_ZIP = 5;
+    private final int TYPE_TXT = 6;
+    private final int TYPE_IMAGE = 7;
+    private final int TYPE_OTHER = 8;
 
     private Context c;
     private File[] files;
@@ -32,7 +31,7 @@ public class DownloadsAdapter extends BaseAdapter {
     public DownloadsAdapter(Context context, File[] files) {
         this.c = context;
         this.files = files;
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -53,20 +52,20 @@ public class DownloadsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView == null){
+        if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.downloads_item, parent, false);
-            holder.ivItemIcon = (ImageView)convertView.findViewById(R.id.ivItemIcon);
-            holder.tvName = (TextView)convertView.findViewById(R.id.tvItemName);
-            holder.tvSize = (TextView)convertView.findViewById(R.id.tvItemSize);
-            holder.tvDate = (TextView)convertView.findViewById(R.id.tvItemDate);
+            holder.ivItemIcon = (ImageView) convertView.findViewById(R.id.ivItemIcon);
+            holder.tvName = (TextView) convertView.findViewById(R.id.tvItemName);
+            holder.tvSize = (TextView) convertView.findViewById(R.id.tvItemSize);
+            holder.tvDate = (TextView) convertView.findViewById(R.id.tvItemDate);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         File file = (File) getItem(position);
-        if (file.isDirectory()){
+        if (file.isDirectory()) {
             holder.ivItemIcon.setImageResource(R.drawable.format_folder);
             holder.tvName.setText(file.getName());
             holder.tvSize.setText(file.listFiles().length + " елементів");
@@ -74,7 +73,7 @@ public class DownloadsAdapter extends BaseAdapter {
             String fileName = file.getName();
             holder.ivItemIcon.setImageDrawable(getFileIcon(fileName));
             holder.tvName.setText(fileName);
-            holder.tvSize.setText(file.length()/1024 + " КБ");
+            holder.tvSize.setText(file.length() / 1024 + " КБ");
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd MMM kk:mm");
         holder.tvDate.setText(dateFormat.format(file.lastModified()));
@@ -82,28 +81,28 @@ public class DownloadsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private Integer getFileType(String fileName){
-        String extension = fileName.substring(fileName.lastIndexOf(".")+1);
-        if (extension.equals("doc") || extension.equals("docx")){
+    private Integer getFileType(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        if (extension.equals("doc") || extension.equals("docx")) {
             return TYPE_WORD;
-        } else if (extension.equals("xls") || extension.equals("xlsx")){
+        } else if (extension.equals("xls") || extension.equals("xlsx")) {
             return TYPE_EXCEL;
-        } else if (extension.equals("pdf")){
+        } else if (extension.equals("pdf")) {
             return TYPE_PDF;
-        } else if (extension.equals("ppt") || extension.equals("pptx")){
+        } else if (extension.equals("ppt") || extension.equals("pptx")) {
             return TYPE_POINT;
-        } else if (extension.equals("zip") || extension.equals("rar")){
+        } else if (extension.equals("zip") || extension.equals("rar")) {
             return TYPE_ZIP;
-        } else if (extension.equals("txt")){
+        } else if (extension.equals("txt")) {
             return TYPE_TXT;
         } else if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif") || extension.equals("bmp")) {
             return TYPE_IMAGE;
         } else return TYPE_OTHER;
     }
 
-    private Drawable getFileIcon(String fileName){
+    private Drawable getFileIcon(String fileName) {
         Integer fileType = getFileType(fileName);
-        switch (fileType){
+        switch (fileType) {
             case TYPE_WORD:
                 return c.getResources().getDrawable(R.drawable.format_word);
             case TYPE_EXCEL:

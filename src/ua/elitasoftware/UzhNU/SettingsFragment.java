@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import java.util.concurrent.ExecutionException;
 
-public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
+public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener, OnPreferenceClickListener {
 
 //    public interface OnPreferenceChange{
 //        void onPreferenceChange(SharedPreferences sharedPreferences, String key);
@@ -25,11 +25,8 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
     public final static String LIST_KEY = "list_of_faculties";
     public final static String CLEAR_ALL_KEY = "clear_folder";
+    public final static String FEEDBACK_KEY = "feedback";
     private ListPreference listPreference;
-
-    public interface OnPreferenceClick{
-        void onPreferenceClick(Preference preference);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,16 +41,16 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         //add preferences from xml
         addPreferencesFromResource(R.xml.preferences);
         //change entries of list preference
-        listPreference = (ListPreference)findPreference(LIST_KEY);
+        listPreference = (ListPreference) findPreference(LIST_KEY);
         try {
-            String[][] entries = (String[][])new FacultiesGetter().execute(getActivity().getApplicationContext()).get();
+            String[][] entries = (String[][]) new FacultiesGetter().execute(getActivity().getApplicationContext()).get();
             String[] entryValues = new String[entries[0].length];
-            for (int i = 0; i<entryValues.length; i++){
-                entryValues[i] = entries[0][i]+"|"+entries[1][i];
+            for (int i = 0; i < entryValues.length; i++) {
+                entryValues[i] = entries[0][i] + "|" + entries[1][i];
             }
             listPreference.setEntryValues(entryValues);
             listPreference.setEntries(entries[1]);
-            if (listPreference.getValue() != null){
+            if (listPreference.getValue() != null) {
                 listPreference.setSummary(listPreference.getEntry());
             }
         } catch (InterruptedException e) {
@@ -69,7 +66,9 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         super.onResume();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         Preference clearAllPref = findPreference(CLEAR_ALL_KEY);
+        Preference feedbackPref = findPreference(FEEDBACK_KEY);
         clearAllPref.setOnPreferenceClickListener(this);
+        feedbackPref.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -78,13 +77,13 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public void setEntries(){
+    public void setEntries() {
 
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        switch (key){
+        switch (key) {
             case LIST_KEY:
                 listPreference.setSummary(listPreference.getEntry());
                 break;
@@ -93,12 +92,16 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        OnPreferenceClick listener = (OnPreferenceClick)getActivity();
+        OnPreferenceClick listener = (OnPreferenceClick) getActivity();
         listener.onPreferenceClick(preference);
         return true;
     }
 
-    class FacultiesGetter extends AsyncTask<Context, Integer, Object>{
+    public interface OnPreferenceClick {
+        void onPreferenceClick(Preference preference);
+    }
+
+    class FacultiesGetter extends AsyncTask<Context, Integer, Object> {
         @Override
         protected Object doInBackground(Context... params) {
             DBHelper dbHelper = new DBHelper(params[0]);
@@ -106,8 +109,8 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
             Cursor c = db.query(dbHelper.FACULTIES, null, null, null, null, null, null);
             String[][] entries;
-            if (c.moveToFirst()){
-                entries = new String[2][c.getCount()+2];
+            if (c.moveToFirst()) {
+                entries = new String[2][c.getCount() + 2];
                 entries[0][0] = "-";
                 entries[1][0] = getResources().getString(R.string.noFaculty);
 
@@ -116,7 +119,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
                 int idIndex = c.getColumnIndex(dbHelper.ID);
                 int captionIndex = c.getColumnIndex(dbHelper.CAPTION);
 
-                for (int i = 2; i < c.getCount()+2; i++){
+                for (int i = 2; i < c.getCount() + 2; i++) {
                     entries[0][i] = c.getString(idIndex);
                     entries[1][i] = c.getString(captionIndex);
                     c.moveToNext();

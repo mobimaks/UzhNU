@@ -5,10 +5,15 @@
             android:key="list_of_faculties"
             android:title="@string/pref_title_list"
             android:summary="@string/pref_sum_list"/>
+
     <Preference
             android:key="clear_folder"
-            android:title="@string/pref_clear_all"
-            android:enabled="true"/>
+            android:title="@string/pref_clear_all"/>
+
+    <Preference
+            android:key="feedback"
+            android:title="@string/feedback"
+            android:summary="@string/reportError"/>
 
     <!--<EditTextPreference-->
     <!--android:key="length"-->
