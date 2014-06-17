@@ -1,17 +1,24 @@
 package ua.elitasoftware.UzhNU;
 
 import android.content.Context;
-import android.media.Image;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
-import android.text.method.ScrollingMovementMethod;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import org.w3c.dom.Text;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class TimetablesAdapter extends BaseExpandableListAdapter {
 
@@ -153,10 +160,40 @@ public class TimetablesAdapter extends BaseExpandableListAdapter {
 
     private void fillFile(TimetableItem item, boolean isExpanded, ViewHolder holder) {
         holder.tvFileName.setText(item.getCaption());
-        holder.tvFileDate.setText(item.getPostDate());
+        String fileDate = item.getPostDate();
+        highlightDate(holder.tvFileDate, fileDate);
+        holder.tvFileDate.setText(fileDate);
 //        holder.pbFileDownload.setProgress(66);
         int downloads = (item.getHits());
         holder.tvFileDownload.setText(String.valueOf(downloads));
+    }
+
+    private void highlightDate(TextView tvFileDate, String fileDate) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+        int interval = Integer.parseInt(preferences.getString(SettingsFragment.DATE_KEY, "7"));
+        DateFormat fileDateFormat = new SimpleDateFormat("dd.MM.yyyy kk:mm");
+        Date filePostDate;
+        try {
+            filePostDate = fileDateFormat.parse(fileDate);
+        } catch (ParseException e) {
+            filePostDate = new Date(System.currentTimeMillis());
+            e.printStackTrace();
+        }
+        Calendar filePostCalendar = new GregorianCalendar();
+        filePostCalendar.setTime(filePostDate);
+
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_YEAR, -interval);
+
+        boolean isAfter = filePostCalendar.after(today);
+
+        if (isAfter) {
+            tvFileDate.setTextColor(c.getResources().getColor(android.R.color.holo_green_dark));
+            tvFileDate.setTypeface(null, Typeface.BOLD);
+        } else {
+            tvFileDate.setTextColor(c.getResources().getColor(android.R.color.darker_gray));
+            tvFileDate.setTypeface(null, Typeface.NORMAL);
+        }
     }
 
     private void fillLink(TimetableItem item, boolean isExpanded, ViewHolder holder) {
@@ -226,7 +263,9 @@ public class TimetablesAdapter extends BaseExpandableListAdapter {
 
     private void fillFile(TimetableItem item, ViewHolder holder) {
         holder.tvFileName.setText(item.getCaption());
-        holder.tvFileDate.setText(item.getPostDate());
+        String fileDate = item.getPostDate();
+        highlightDate(holder.tvFileDate, fileDate);
+        holder.tvFileDate.setText(fileDate);
         holder.tvFileDownload.setText(String.valueOf(item.getHits()));
     }
 
@@ -252,8 +291,8 @@ public class TimetablesAdapter extends BaseExpandableListAdapter {
 
     private View inflateFile(View convertView, ViewHolder holder, ViewGroup parent) {
         convertView = inflater.inflate(R.layout.file_item, parent, false);
-        holder.tvFileName = (TextView)convertView.findViewById(R.id.tvFileName);
-        holder.tvFileDate = (TextView)convertView.findViewById(R.id.tvFileDate);
+        holder.tvFileName = (TextView) convertView.findViewById(R.id.tvFileName);
+        holder.tvFileDate = (TextView) convertView.findViewById(R.id.tvFileDate);
 //        holder.pbFileDownload = (ProgressBar)convertView.findViewById(R.id.pbFileDownload);
         holder.tvFileDownload = (TextView)convertView.findViewById(R.id.tvFileDownload);
         convertView.setTag(holder);

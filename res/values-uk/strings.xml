@@ -27,6 +27,14 @@
     <string name="about">Про програму</string>
     <string name="aboutVer">Версія %1$s</string>
     <string name="aboutDev">Розроблено Інститутом інформаційно-комунікаційних технологій</string>
-    <string name="feedback">Зворотній зв\'язок</string>
+    <string name="pref_feedback">Зворотній зв\'язок</string>
     <string name="reportError">Повідомити про помилку</string>
+    <string name="pref_date">Підсвічування файлів за останні</string>
+    <string name="pref_date_summary">Виберіть інтервал для підсвічування</string>
+    <string-array name="dateCaption">
+        <item>1 тиждень</item>
+        <item>2 тижні</item>
+        <item>1 місяць</item>
+        <item>3 місяці</item>
+    </string-array>
 </resources>

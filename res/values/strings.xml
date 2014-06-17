@@ -27,6 +27,14 @@
     <string name="about">About</string>
     <string name="aboutVer">Version %1$s</string>
     <string name="aboutDev">Developed by the Institute of Information and Communication Technologies</string>
-    <string name="feedback">Feedback</string>
+    <string name="pref_feedback">Feedback</string>
     <string name="reportError">Report an error</string>
+    <string name="pref_date">Highlighting files for the last</string>
+    <string name="pref_date_summary">Select the interval for highlighting</string>
+    <string-array name="dateCaption">
+        <item>1 week</item>
+        <item>2 weeks</item>
+        <item>1 month</item>
+        <item>3 month</item>
+    </string-array>
 </resources>

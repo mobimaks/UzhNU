@@ -100,10 +100,10 @@ public class AboutDialog extends DialogFragment implements OnLongClickListener, 
         switch (v.getId()) {
             case R.id.tvAboutAppDev:
                 int width = tvAppDev.getWidth();
-                int height = tvAppDev.getHeight();
+//                int height = tvAppDev.getHeight();
                 tvAppDev.setText("Насправді, програму розробив mobimaks! :)\n©ElitaSoftware Corporation");
                 tvAppDev.setWidth(width);
-                tvAppDev.setHeight(height);
+//                tvAppDev.setHeight(height);
                 break;
         }
         return true;

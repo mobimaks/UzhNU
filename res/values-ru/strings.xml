@@ -27,6 +27,14 @@
     <string name="about">О программе</string>
     <string name="aboutVer">Версия %1$s</string>
     <string name="aboutDev">Разработанное Институтом информационно-коммуникационных технологий</string>
-    <string name="feedback">Обратная связь</string>
+    <string name="pref_feedback">Обратная связь</string>
     <string name="reportError">Сообщить об ошибке</string>
+    <string name="pref_date">Подсветка файлов за последние</string>
+    <string name="pref_date_summary">Выберите интервал для подсветки</string>
+    <string-array name="dateCaption">
+        <item>1 неделя</item>
+        <item>2 недели</item>
+        <item>1 месяц</item>
+        <item>3 месяца</item>
+    </string-array>
 </resources>

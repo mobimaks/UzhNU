@@ -45,6 +45,9 @@ public class SettingsActivity extends BaseActivity implements OnPreferenceClick 
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.devSubject));
                 startActivity(emailIntent);
                 break;
+            case SettingsFragment.DATE_KEY:
+                DatePick datePick = new DatePick(getFragmentManager());
+                break;
         }
     }
 

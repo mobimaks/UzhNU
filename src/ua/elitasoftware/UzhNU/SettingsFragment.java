@@ -26,20 +26,19 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     public final static String LIST_KEY = "list_of_faculties";
     public final static String CLEAR_ALL_KEY = "clear_folder";
     public final static String FEEDBACK_KEY = "feedback";
-    private ListPreference listPreference;
+    public final static String DATE_KEY = "date";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private ListPreference listPreference;
+    private ListPreference datePreference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //set fitsSystemWindows
-        container.setFitsSystemWindows(true);
-
         //add preferences from xml
         addPreferencesFromResource(R.xml.preferences);
+        datePreference = (ListPreference) findPreference(DATE_KEY);
+        if (datePreference.getValue() != null) {
+            datePreference.setSummary(datePreference.getEntry());
+        }
         //change entries of list preference
         listPreference = (ListPreference) findPreference(LIST_KEY);
         try {
@@ -77,15 +76,14 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public void setEntries() {
-
-    }
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
             case LIST_KEY:
                 listPreference.setSummary(listPreference.getEntry());
+                break;
+            case DATE_KEY:
+                datePreference.setSummary(datePreference.getEntry());
                 break;
         }
     }

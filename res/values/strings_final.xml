@@ -6,4 +6,10 @@
     <string name="devEmail">mobimaks13@gmail.com</string>
     <string name="devSubject">Програма \"УжНУ\"</string>
     <string name="uzhnuSite">http://www.uzhnu.edu.ua/</string>
+    <string-array name="dateDays">
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+        <item>90</item>
+    </string-array>
 </resources>
