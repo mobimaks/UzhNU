@@ -22,15 +22,4 @@
             android:key="feedback"
             android:title="@string/pref_feedback"
             android:summary="@string/reportError"/>
-    <!--<EditTextPreference-->
-    <!--android:key="length"-->
-    <!--android:inputType="numberSigned"-->
-    <!--android:summary="Картинка"-->
-    <!--android:title="Введи відстань, маупа!"/>-->
-
-    <!--<EditTextPreference-->
-    <!--android:key="up"-->
-    <!--android:inputType="numberSigned"-->
-    <!--android:summary="Розроблено.."-->
-    <!--android:title="Введи відстань, маупа![2]"/>-->
 </PreferenceScreen>
